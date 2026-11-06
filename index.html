@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SALFI S.A.S. - Banco Digital Familiar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --azul-oscuro: #191970;
+      --purpura-azulado: #483D8B;
+      --azul-acero: #4682B4;
+      --blanco: #ffffff;
+      --gris-claro: #f8f9fa;
+      --gris-medio: #6c757d;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 62.5%;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--azul-oscuro);
+      background-color: var(--blanco);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      margin-top: 0;
+      color: var(--azul-oscuro);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.3s ease;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(25, 25, 112, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1.5rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: padding 0.3s ease;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--blanco);
+      letter-spacing: 0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 3rem;
+    }
+
+    .nav-links a {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: var(--blanco);
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(135deg, var(--azul-acero), var(--purpura-azulado));
+      transition-width: 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .cta-nav {
+      background: linear-gradient(135deg, var(--azul-acero), var(--purpura-azulado));
+      color: var(--blanco);
+      padding: 0.8rem 2rem;
+      border-radius: 4px;
+      font-size: 1.6rem;
+      font-weight: 600;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .cta-nav:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(70, 130, 180, 0.4);
+    }
+
+    /* Mobile menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: var(--blanco);
+      transition: all 0.3s ease;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--azul-oscuro) 0%, var(--purpura-azulado) 100%);
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 0 5%;
+      margin-top: 8rem;
+    }
+
+    .hero-content {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+      color: var(--blanco);
+    }
+
+    .hero h1 {
+      font-size: 4.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 2rem;
+      letter-spacing: -1px;
+    }
+
+    .hero p {
+      font-size: 1.8rem;
+      margin-bottom: 3rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-hero {
+      display: inline-block;
+      background: var(--azul-acero);
+      color: var(--blanco);
+      padding: 1.2rem 3rem;
+      border-radius: 4px;
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin: 0 1rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-hero:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(70, 130, 180, 0.4);
+    }
+
+    .btn-hero-secondary {
+      background: transparent;
+      border: 2px solid var(--blanco);
+      color: var(--blanco);
+      padding: 1.2rem 3rem;
+      border-radius: 4px;
+      font-size: 1.8rem;
+      font-weight: 600;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-hero-secondary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+
+    /* Visual elements hero */
+    .hero-visual {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      text-align: left;
+    }
+
+    .phone-mockup {
+      background: var(--blanco);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 350px;
+      margin: 0 auto;
+    }
+
+    .card-digital {
+      width: 60px;
+      height: 35px;
+      background: linear-gradient(135deg, var(--azul-acero), var(--purpura-azulado));
+      border-radius: 6px;
+      margin: 0.5rem auto;
+    }
+
+    /* Who We Are Section */
+    .nosotros {
+      padding: 8rem 5%;
+      background-color: var(--gris-claro);
+    }
+
+    .nosotros h2 {
+      font-size: 3.5rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .nosotros h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(135deg, var(--azul-acero), var(--purpura-azulado));
+    }
+
+    .conceptos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .concepto {
+      padding: 2rem;
+      background: var(--blanco);
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .concepto:hover {
+      transform: translateY(-5px);
+    }
+
+    .concepto h3 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--azul-oscuro);
+    }
+
+    /* Services Section */
+    .servicios {
+      padding: 8rem 5%;
+    }
+
+    .servicios h2 {
+      font-size: 3.5rem;
+      text-align: center;
+      margin-bottom: 5rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .servicios h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(135deg, var(--azul-acero), var(--purpura-azulado));
+    }
+
+    .servicios-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .servicio-card {
+      padding: 2.5rem 2rem;
+      background: var(--blanco);
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-top: 4px solid var(--azul-oscuro);
+    }
+
+    .servicio-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    .servicio-card:hover .servicio-icon {
+      background: linear-gradient(135deg, var(--azul-acero), var(--purpura-azulado));
+    }
+
+    .servicio-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--gris-claro);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      transition: background 0.3s ease;
+    }
+
+    .servicio-icon svg {
+      width: 30px;
+      height: 30px;
+      stroke: var(--azul-oscuro);
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .servicio-icon path,
+    .servicio-icon circle {
+      stroke: var(--azul-oscuro);
+    }
+
+    .servicio-card h3 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--azul-oscuro);
+    }
+
+    .servicio-card p {
+      font-size: 1.5rem;
+      color: var(--gris-medio);
+    }
+
+    /* Generations Section */
+    .generaciones {
+      padding: 8rem 5%;
+      background: linear-gradient(135deg, var(--azul-oscuro) 0%, var(--purpura-azulado) 100%);
+      color: var(--blanco);
+    }
+
+    .generaciones h2 {
+      font-size: 3.5rem;
+      text-align: center;
+      margin-bottom: 5rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .generaciones h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: var(--azul-acero);
+    }
+
+    .generacion-card {
+      padding: 3rem 2rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      text-align: center;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .generacion-card:hover {
+      transform: translateY(-10px);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .generacion-card h3 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .generacion-card p {
+      font-size: 1.6rem;
+      opacity: 0.9;
+    }
+
+    .mascota {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 2rem;
+      background: var(--azul-acero);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Footer */
+    footer {
+      padding: 5rem 5% 2rem;
+      background: var(--azul-oscuro);
+      color: var(--blanco);
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand p {
+      font-size: 1.5rem;
+      margin-top: 1rem;
+      max-width: 200px;
+    }
+
+    .footer-links h4 {
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-links ul li {
+      margin-bottom: 1rem;
+    }
+
+    .footer-links a {
+      font-size: 1.5rem;
+      color: var(--blanco);
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      opacity: 1;
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 2rem;
+      border-top: 1px solid var(--purpura-azulado);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.4rem;
+      color: var(--gris-medio);
+    }
+
+    /* Mobile Menu Active */
+    .nav-active {
+      display: block;
+    }
+
+    .toggle .line1 {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .toggle .line2 {
+      opacity: 0;
+    }
+
+    .toggle .line3 {
+      transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    @media (max-width: 900px) {
+      .nav-links {
+        position: fixed;
+        top: 8rem;
+        left: 0;
+        right: 0;
+        background: rgba(25, 25, 112, 0.98);
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        padding: 2rem 5%;
+        display: none;
+        width: 100%;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 3.5rem;
+      }
+
+      .hero p {
+        font-size: 1.6rem;
+      }
+
+      .btn-hero {
+        padding: 1rem 2rem;
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">SALFI</div>
+    <ul class="nav-links">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#quienes-somos">Nosotros</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#filosofia">Filosofía</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a href="#servicios" class="cta-nav">Conoce Salfi</a>
+
+    <div class="hamburger" id="hamburger">
+      <span class="line1"></span>
+      <span class="line2"></span>
+      <span class="line3"></span>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="inicio">
+    <div class="hero-content">
+      <h1>Un banco para toda la familia, una experiencia para cada generación.</h1>
+      <p>En Salfi creemos que aprender a manejar el dinero y tener acceso a servicios financieros debe ser fácil para todos. Acompañamos a niños, adultos y adultos mayores en cada etapa de su vida.</p>
+      <div>
+        <a href="#servicios" class="btn-hero">Descubre Salfi</a>
+        <a href="#quienes-somos" class="btn-hero-secondary">Conoce nuestros servicios</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="phone-mockup">
+        <div class="card-digital"></div>
+        <div class="card-digital"></div>
+        <div class="card-digital"></div>
+        <div class="card-digital"></div>
+        <div class="card-digital"></div>
+        <svg viewBox="0 0 24 24" stroke-width="1.5" fill="none" stroke="currentColor">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+          <path d="M2 17l10 5 10-5"></path>
+          <path d="M2 12l10 5 10-5"></path>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who We Are Section -->
+  <section class="nosotros" id="quienes-somos">
+    <div class="container">
+      <h2>Somos Salfi, somos tu banco familiar</h2>
+      <p>Salfi es una propuesta de banco digital colombiano que nace con el propósito de transformar la manera en que las familias se relacionan con el dinero. Queremos que cada generación encuentre en nosotros una experiencia financiera sencilla, confiable y adaptada a sus necesidades.</p>
+      <div class="conceptos">
+        <div class="concepto">
+          <h3>Inclusión financiera</h3>
+          <p>Llegamos a cada rincón de Colombia, ofreciendo servicios adaptados para todas las edades y situaciones económicas.</p>
+        </div>
+        <div class="concepto">
+          <h3>Educación para todos</h3>
+          <p>Fomentamos la alfabetización financiera desde la infancia hasta la vejez, creando hábitos saludables de manejo del dinero.</p>
+        </div>
+        <div class="concepto">
+          <h3>Tecnología cercana</h3>
+          <p>Aplicaciones intuitivas y asistencia personalizada que hacen la banca fácil y accesible para todos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="servicios" id="servicios">
+    <div class="container">
+      <h2>Soluciones financieras para cada etapa de tu vida</h2>
+      <div class="servicios-grid">
+        <div class="servicio-card">
+          <div class="servicio-icon">
+            <svg viewBox="0 0 24 24" stroke-width="1.5" fill="none" stroke="currentColor">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+            </svg>
+          </div>
+          <h3>Cuentas de ahorro</h3>
+          <p>Administra tu dinero de forma digital con nuestra cuenta de ahorros segura y sin comisiones ocultas.</p>
+        </div>
+        <div class="servicio-card">
+          <div class="servicio-icon">
+            <svg viewBox="0 0 24 24" stroke-width="1.5" fill="none" stroke="currentColor">
+              <circle cx="12" cy="12" r="10"></path>
+              <polyline points="12 6 8 12 12 18"></polyline>
+            </svg>
+          </div>
+          <h3>Transferencias</h3>
+          <p>Envía y recibe dinero fácilmente a cualquier banco en Colombia, al instante y sin complicaciones.</p>
+        </div>
+        <div class="servicio-card">
+          <div class="servicio-icon">
+            <svg viewBox="0 0 24 24" stroke-width="1.5" fill="none" stroke="currentColor">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+            </svg>
+          </div>
+          <h3>Bolsillos y metas</h3>
+          <p>Organiza tus finanzas y alcanza tus objetivos creando metas de ahorro personalizadas y bolsillos temáticos.</p>
+        </div>
+        <div class="servicio-card">
+          <div class="servicio-icon">
+            <svg viewBox="0 0 24 24" stroke-width="1.5" fill="none" stroke="currentColor">
+              <rect x="1" y="4" width="22" height="20" rx="2" ry="2"></rect>
+              <line x1="1" y1="10" x2="23" y2="10"></line>
+            </svg>
+          </div>
+          <h3>Tarjetas débito y crédito</h3>
+          <p>Realiza compras y administra tus pagos con tarjetas digitales y físicas, con control total desde la app.</p>
+        </div>
+        <div class="servicio-card">
+          <div class="servicio-icon">
+            <svg viewBox="0 0 24 24" stroke-width="1.5" fill="none" stroke="currentColor">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+            </svg>
+          </div>
+          <h3>Pago de servicios</h3>
+          <p>Paga tus facturas desde un mismo lugar: luz, agua, internet, teléfono y más, de forma rápida y segura.</p>
+        </div>
+        <div class="servicio-card">
+          <div class="servicio-icon">
+            <svg viewBox="0 0 24 24" stroke-width="1.5" fill="none" stroke="currentColor">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+          </div>
+          <h3>Recargas de celular</h3>
+          <p>Realiza recargas de celular de manera sencilla para ti y para toda tu familia, con los principales operadores.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Generations Section -->
+  <section class="generaciones" id="generaciones">
+    <div class="container">
+      <h2>Salfí para todas las generaciones</h2>
+      <div class="generacion-grid">
+        <div class="generacion-card">
+          <div class="mascota">🦒</div>
+          <h3>Para los niños</h3>
+          <p>Aprender a ahorrar nunca fue tan divertido. Con nuestra mascota Salfi, una simpática jirafa, los niños pueden descubrir el mundo de las finanzas mediante juegos, videos cortos y actividades educativas. Aprender sobre el ahorro, las tarjetas y los bancos será una aventura.</p>
+        </div>
+        <div class="generacion-card">
+          <div class="mascota">👤</div>
+          <h3>Para los adultos</h3>
+          <p>Tus finanzas bajo control. Ofrecemos herramientas digitales para administrar tu dinero, realizar transferencias, crear metas de ahorro, pagar servicios y organizar tus finanzas desde un solo lugar.</p>
+        </div>
+        <div class="generacion-card">
+          <div class="mascota">👴</div>
+          <h3>Para los adultos mayores</h3>
+          <p>Asistencia por voz y una interfaz simplificada para adultos mayores. Acceso fácil a consulta de saldos, transferencias y pagos con comandos de voz y diseño de gran legibilidad.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filosofía Section -->
+  <section class="filosofia" id="filosofia">
+    <div class="container">
+      <h2>Nuestra filosofía</h2>
+      <div class="conceptos">
+        <div class="concepto">
+          <h3>Confianza</h3>
+          <p>Construimos relaciones duraderas basadas en la transparencia y la seguridad financiera para cada familia.</p>
+        </div>
+        <div class="concepto">
+          <h3>Innovación</h3>
+          <p>Constantemente evolucionamos para ofrecer las mejores herramientas digitales y experiencias financieras modernas.</p>
+        </div>
+        <div class="concepto">
+          <h3>Cercanía</h3>
+          <p>Estamos cerca de ti, comprendiendo las necesidades únicas de cada generación familiar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto Section -->
+  <section class="contacto" id="contacto">
+    <div class="container">
+      <h2>Contacto</h2>
+      <div class="contacto-info">
+        <div class="contacto-detalle">
+          <h4>Dirección</h4>
+          <p>Cra. 7 # 66-40, Bogotá, Colombia</p>
+        </div>
+        <div class="contacto-detalle">
+          <h4>Teléfono</h4>
+          <p>+57 (1) 234 5678</p>
+        </div>
+        <div class="contacto-detalle">
+          <h4>Correo</h4>
+          <p>informacion@salfi.com.co</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="logo">SALFI</div>
+        <p>Banco digital colombiano que acompaña a toda la familia en su relación con el dinero.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Enlaces</h4>
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#quienes-somos">Nosotros</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#generaciones">Generaciones</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Productos</h4>
+        <ul>
+          <li><a href="#">Cuentas de ahorro</a></li>
+          <li><a href="#">Transferencias</a></li>
+          <li><a href="#">Tarjetas</a></li>
+          <li><a href="#">Pago de servicios</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Soporte</h4>
+        <ul>
+          <li><a href="#">Ayuda</a></li>
+          <li><a href="#">Preguntas frecuentes</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 SALFI S.A.S. - Todos los derechos reservados</p>
+      <p>Bogotá, Colombia</p>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('nav-active');
+
+      const isActive = navLinks.classList.contains('nav-active');
+      hamburger.classList.toggle('toggle', isActive);
+    });
+  </script>
+
+</body>
+</html>
